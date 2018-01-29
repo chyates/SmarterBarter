@@ -1,17 +1,123 @@
-<div class="top-bar">
-  <div class="top-bar-left">
-    <ul class="menu">
-      <li class="menu-text">SmarterBarter</li>
-      <li><button type="button" class="hollow button" data-open="regModal">Register</button></li>
-      <li><button type="button" class="hollow button" data-open="logModal">Log in</button></li>
-    </ul>
+<button type="button" class="btn btn-primary-outline" data-toggle="modal" data-target="#regModal">Register</button>
+<button type="button" class="btn btn-primary-outline" data-toggle="modal" data-target="#logModal">Log in</button>
+
+<!-- Register modal -->
+<div class="modal" id="regModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Sign up!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="validReg()" #regForm="ngForm">
+          <div class="form-group">
+            <label for="firstName" class="col-form-label">First Name:</label>
+            <input type="text" class="form-control"
+            name="firstName"
+            required
+            minlength="2"
+            [(ngModel)]="regUser.firstName"
+            #firstName="ngModel"
+            placeholder="Enter your first name">
+            <span *ngIf="!firstName.valid && firstName.touched">First name is required and must be at least 2 characters</span>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName" class="col-form-label">Last Name:</label>
+            <input type="text" class="form-control"
+            name="lastName"
+            required
+            minlength="2"
+            [(ngModel)]="regUser.lastName"
+            #lastName="ngModel"
+            placeholder="Enter your last name">
+            <span *ngIf="!lastName.valid && lastName.touched">Last name is required and must be at least two characters</span>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="email" class="form-control"
+            name="email"
+            required
+            [(ngModel)]="regUser.email"
+            #email="ngModel"
+            placeholder="Enter your email">
+            <span class="text-info" *ngIf="!email.valid && email.touched">Email is required</span>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="col-form-label">Password:</label>
+            <input type="password" class="form-control"
+            name="password"
+            required
+            minlength="8"
+            [(ngModel)]="regUser.password"
+            #password="ngModel"
+            placeholder="Enter a password">
+            <span class="text-info" *ngIf="!password.valid && password.touched">Password is required and must be at least 8 characters</span>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword" class="col-form-label">Confirm Password:</label>
+            <input type="password" class="form-control" 
+            name="confirmPassword"
+            required
+            [(ngModel)]="regUser.confirmPassword"
+            #confirmPassword="ngModel">
+            <span class="text-info" *ngIf="!confirmPassword.valid && confirmPassword.touched">You must enter a password confirmation</span>
+            <span class="text-info" *ngIf="confirmPassword != password && confirmPassword.touched">Passwords must match</span>
+          </div>
+
+          <div class="form-group">
+            <input class="form-control" type="submit" class="form-control btn btn-primary-outline" [disabled]="!regForm.valid" value="Register">
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Register modal -->
-<div class="reveal" id="regModal" data-reveal>
-  <p>Testing modal functionality</p>
-  <button class="close-button" data-close aria-label="Close modal" type="button">
-    <span aria-hidden="true">&times;</span>
-  </button>
+<!-- Log modal -->
+<div class="modal" id="logModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Log in</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="validLog()" #logForm="ngForm">
+          <div class="form-group">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="email" class="form-control"
+            name="logEmail"
+            required
+            [(ngModel)]="logUser.email"
+            #email="ngModel"
+            placeholder="Enter your email">
+            <span class="text-info" *ngIf="emailError">{{ emailError }}</span>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="col-form-label">Password: </label>
+            <input type="password" class="form-control"
+            required
+            [(ngModel)]="logUser.password"
+            #password="ngModel"
+            placeholder="Enter your password">
+            <span class="text-info" *ngIf="passError">{{ passError }}</span>
+          </div>
+
+          <div class="form-group">
+            <button class="form-control btn btn-primary-outline" type="submit" [disabled]="!logForm.valid">Log in</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

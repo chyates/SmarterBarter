@@ -19,4 +19,17 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  regUser = new User();
+  logUser = new LogUser();
+  emailError: String;
+  passError: String;
+
+  // validReg(){
+  //   return
+  // }
+
+  // validLog(){
+
+  // }
+
 }
